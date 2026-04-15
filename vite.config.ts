@@ -10,4 +10,7 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  server: {
+    allowedHosts: ["nonstringent-healingly-freddy.ngrok-free.dev"],
+  },
 })

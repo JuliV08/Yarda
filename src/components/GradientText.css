@@ -1,0 +1,94 @@
+.animated-gradient-text {
+  position: relative;
+  margin: 0 auto;
+  display: flex;
+  max-width: fit-content;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  overflow: visible;
+  cursor: none;
+
+  /* Frosted glass pill */
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.8) 0%,
+      rgba(240, 244, 255, 0.65) 50%,
+      rgba(255, 255, 255, 0.75) 100%
+    );
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+
+  /* Gradient border via box-shadow inset trick + outer glow */
+  border: 1px solid transparent;
+  background-clip: padding-box;
+  box-shadow:
+    inset 0 0 0 1px rgba(66, 202, 215, 0.18),
+    0 1px 3px rgba(64, 128, 232, 0.08),
+    0 4px 20px rgba(66, 202, 215, 0.06),
+    0 8px 40px rgba(51, 204, 102, 0.04);
+}
+
+/* Animated gradient border ring */
+.animated-gradient-text::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(66, 202, 215, 0.35),
+    rgba(51, 204, 102, 0.25),
+    rgba(64, 128, 232, 0.35),
+    rgba(66, 202, 215, 0.2)
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.animated-gradient-text.with-border {
+  padding: 0.15rem 0.5rem;
+}
+
+.gradient-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.gradient-overlay::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border-radius: inherit;
+  width: calc(100% - 2px);
+  height: calc(100% - 2px);
+  transform: translate(-50%, -50%);
+  background-color: var(--background);
+  z-index: -1;
+}
+
+.text-content {
+  display: inline-block;
+  position: relative;
+  z-index: 2;
+  padding: 0.3em 1em;
+  line-height: 1.2;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
