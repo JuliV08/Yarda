@@ -41,12 +41,12 @@ const tramiteSteps = [
 ]
 
 const signTypes = [
-  { name: 'Letrero saliente', desc: 'Perpendicular a la línea oficial o de retiro obligatorio.', image: '' },
-  { name: 'Letrero frontal', desc: 'Paralelo a la línea oficial, ochava, retiro obligatorio o frente del edificio.', image: '' },
-  { name: 'Letrero luminoso', desc: 'Anuncio que emite luz propia.', image: '' },
-  { name: 'Letrero iluminado', desc: 'Anuncio que recibe luz artificial mediante fuentes luminosas externas.', image: '' },
-  { name: 'Marquesina', desc: 'Cubierta fija y no transitable, que puede llevar anuncios en sus caras.', image: '' },
-  { name: 'Toldo con o sin publicidad', desc: 'Cubierta no transitable, fija, móvil y/o rebatible.', image: '' },
+  { name: 'Letrero saliente', desc: 'Perpendicular a la línea oficial o de retiro obligatorio.', image: '/images/tipos-cartel/saliente.webp' },
+  { name: 'Letrero frontal', desc: 'Paralelo a la línea oficial, ochava, retiro obligatorio o frente del edificio.', image: '/images/tipos-cartel/frontal.webp' },
+  { name: 'Letrero luminoso', desc: 'Anuncio que emite luz propia.', image: '/images/tipos-cartel/iluminado.webp' },
+  { name: 'Letrero iluminado', desc: 'Anuncio que recibe luz artificial mediante fuentes luminosas externas.', image: '/images/tipos-cartel/luminoso.webp' },
+  { name: 'Marquesina', desc: 'Cubierta fija y no transitable, que puede llevar anuncios en sus caras.', image: '/images/tipos-cartel/marquesina.webp' },
+  { name: 'Toldo con o sin publicidad', desc: 'Cubierta no transitable, fija, móvil y/o rebatible.', image: '/images/tipos-cartel/toldo.webp' },
 ]
 
 export default function CirclesSection() {
@@ -114,13 +114,20 @@ export default function CirclesSection() {
               className="border-b border-slate-light/60 py-4 last:border-0"
             >
               <div className="flex gap-4">
-                {/* TODO: las clientas van a proporcionar imágenes de cada tipo */}
-                {st.image && (
+                {/* TODO: reemplazar placeholders con imágenes finales de las clientas */}
+                {st.image ? (
                   <img
                     src={st.image}
                     alt={st.name}
-                    className="h-20 w-28 flex-shrink-0 rounded-lg border border-slate-light object-cover"
+                    className="h-32 w-44 flex-shrink-0 rounded-lg border border-slate-light object-cover shadow-sm md:h-40 md:w-56"
                   />
+                ) : (
+                  <div
+                    className="flex h-32 w-44 flex-shrink-0 items-center justify-center rounded-lg border border-dashed border-slate-light bg-slate-light/30 text-[11px] font-medium uppercase tracking-wider text-slate-medium/60 md:h-40 md:w-56"
+                    aria-hidden="true"
+                  >
+                    Foto próximamente
+                  </div>
                 )}
                 <div>
                   <h4 className="font-semibold text-slate-dark">{st.name}</h4>
