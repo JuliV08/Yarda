@@ -48,7 +48,7 @@ export default function AboutUs() {
           {/* Title */}
           <m.div variants={itemVariants} className="mb-14 text-center">
             <GradientText className="text-3xl font-bold md:text-4xl lg:text-5xl" animationSpeed={8}>
-              Quiénes somos
+              QUIÉNES SOMOS
             </GradientText>
           </m.div>
 

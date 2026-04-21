@@ -56,70 +56,76 @@ export default function Navbar() {
         />
       )}
 
-      <div className={`relative z-[2] mx-auto max-w-7xl flex items-center justify-between px-4 md:px-8 ${
-        isScrolled ? 'py-2' : 'py-4'
+      <div className={`relative z-[2] mx-auto max-w-7xl flex items-center justify-between sm:justify-center sm:gap-2 md:gap-3 lg:gap-5 px-4 sm:px-5 md:px-6 lg:px-8 ${
+        isScrolled ? 'py-2' : 'py-3'
       }`}>
         {/* Logo */}
         <a href="/" className="flex-shrink-0">
           <img
             src="/images/logo.png"
             alt="Yarda Habilita"
-            className={`w-auto object-contain ${isScrolled ? 'h-20 md:h-24 -my-3 md:-my-4' : 'h-24 md:h-28 -my-4 md:-my-5'}`}
-            style={{ transition: 'height 0.3s, margin 0.3s' }}
+            className={`w-auto object-contain ${isScrolled ? 'h-24 sm:h-12 md:h-16 lg:h-28' : 'h-28 sm:h-14 md:h-20 lg:h-32'}`}
+            style={{ transition: 'height 0.3s' }}
           />
         </a>
 
-        {/* Desktop links */}
-        <div className="hidden lg:flex items-center gap-2">
+        {/* Tablet + desktop links — inline from sm (≥640px) so small tablets (≤767px) also see pills */}
+        <div className="hidden sm:flex items-center gap-1 md:gap-1.5 lg:gap-2">
           {navLinks.map((link) => (
             <m.button
               key={link.href}
               onClick={() => handleNavClick(link.href)}
-              className={`cursor-target relative rounded-full px-5 py-2 text-sm font-medium ${
-                isScrolled
-                  ? 'text-slate-dark'
-                  : 'text-white'
-              }`}
-              whileHover={{ scale: 1.06 }}
+              className="cursor-target group relative rounded-full px-2.5 py-1 text-[11px] font-semibold md:px-3 md:py-1.5 md:text-xs lg:px-5 lg:py-2 lg:text-sm"
+              whileHover={{ scale: 1.05, y: -1 }}
               whileTap={{ scale: 0.96 }}
               transition={{ type: 'spring', stiffness: 400, damping: 25 }}
             >
-              {/* Always-visible pill background */}
+              {/* Gradient border ring — thick, fully saturated, always visible */}
               <span
-                className={`absolute inset-0 rounded-full ${
+                aria-hidden
+                className="pointer-events-none absolute inset-0 rounded-full"
+                style={{
+                  padding: '2px',
+                  background:
+                    'linear-gradient(135deg, #42CAD7, #33CC66, #4080E8)',
+                  WebkitMask:
+                    'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                  WebkitMaskComposite: 'xor',
+                  maskComposite: 'exclude',
+                }}
+              />
+              {/* Contextual fill — bright glass with brand tint */}
+              <span
+                className={`absolute inset-[2px] rounded-full backdrop-blur-sm ${
                   isScrolled
-                    ? 'bg-slate-light/70 shadow-[inset_0_0_0_1px_rgba(108,122,163,0.15),0_1px_3px_rgba(0,0,0,0.04)]'
-                    : 'bg-white/[0.08] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.18),0_1px_3px_rgba(0,0,0,0.1)]'
+                    ? 'bg-gradient-to-br from-white via-white to-accent-cyan/10'
+                    : 'bg-gradient-to-br from-white/[0.12] via-white/[0.08] to-accent-cyan/[0.12]'
                 }`}
-                style={{ transition: 'background-color 0.3s, box-shadow 0.3s' }}
+                style={{ transition: 'background-color 0.3s' }}
               />
-              {/* Hover glow overlay */}
-              <m.span
-                className={`absolute inset-0 rounded-full ${
-                  isScrolled
-                    ? 'bg-gradient-to-b from-white/60 to-slate-light/40 shadow-[inset_0_0_0_1px_rgba(66,202,215,0.2),0_2px_8px_rgba(66,202,215,0.1)]'
-                    : 'bg-white/[0.15] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.3),0_2px_8px_rgba(66,202,215,0.15)]'
-                }`}
-                initial={{ opacity: 0 }}
-                whileHover={{ opacity: 1 }}
-                transition={{ duration: 0.2 }}
+              {/* Soft outer glow — subtle brand presence */}
+              <span
+                aria-hidden
+                className="pointer-events-none absolute inset-0 rounded-full opacity-0 group-hover:opacity-100"
+                style={{
+                  boxShadow:
+                    '0 6px 20px -6px rgba(66,202,215,0.55), 0 0 0 3px rgba(66,202,215,0.12)',
+                  transition: 'opacity 0.35s',
+                }}
               />
-              {/* Gradient underline on hover */}
-              <m.span
-                className="absolute bottom-0 left-3 right-3 h-[2px] rounded-full bg-gradient-to-r from-accent-cyan via-accent-green to-accent-blue"
-                initial={{ scaleX: 0, opacity: 0 }}
-                whileHover={{ scaleX: 1, opacity: 1 }}
-                transition={{ duration: 0.25, ease: 'easeOut' }}
-                style={{ originX: 0 }}
-              />
-              <span className="relative z-[1]">{link.label}</span>
+              <span
+                className={`relative ${isScrolled ? 'text-slate-dark' : 'text-white'}`}
+                style={{ transition: 'color 0.3s' }}
+              >
+                {link.label}
+              </span>
             </m.button>
           ))}
 
-          {/* CTA button */}
+          {/* CTA button — same gradient, extra shadow + ring to keep visual hierarchy */}
           <m.button
             onClick={() => { setMobileOpen(false); scrollToContact() }}
-            className="cursor-target group relative ml-3 overflow-hidden rounded-full px-6 py-2.5 text-sm font-semibold text-white"
+            className="cursor-target group relative ml-0.5 overflow-hidden rounded-full px-3 py-1.5 text-[11px] font-semibold text-white shadow-[0_6px_18px_-6px_rgba(66,202,215,0.55)] ring-1 ring-white/20 md:ml-1 md:px-4 md:py-2 md:text-xs lg:px-6 lg:py-2.5 lg:text-sm"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.97 }}
             transition={{ type: 'spring', stiffness: 400, damping: 25 }}
@@ -129,17 +135,17 @@ export default function Navbar() {
               className="absolute inset-0 bg-gradient-to-tl from-accent-cyan via-accent-blue to-accent-green opacity-0 group-hover:opacity-100"
               style={{ transition: 'opacity 0.4s' }}
             />
-            <span className="absolute inset-0 shadow-[inset_0_1px_1px_rgba(255,255,255,0.25)]" />
+            <span className="absolute inset-0 shadow-[inset_0_1px_1px_rgba(255,255,255,0.3)]" />
             <span className="relative">Consultá gratis</span>
           </m.button>
 
-          {/* Social icons — after CTA */}
+          {/* Social icons — after CTA (hidden on tablet to save space) */}
           <a
             href="https://www.instagram.com/yarda.habilita"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Instagram"
-            className={`cursor-target ml-2 flex h-9 w-9 items-center justify-center rounded-full ${
+            className={`cursor-target ml-2 hidden h-9 w-9 items-center justify-center rounded-full lg:flex ${
               isScrolled
                 ? 'text-slate-medium hover:text-accent-cyan'
                 : 'text-white/70 hover:text-white'
@@ -149,10 +155,11 @@ export default function Navbar() {
             <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
           </a>
           <a
-            href="#contacto"
-            onClick={(e) => { e.preventDefault(); scrollToContact() }}
+            href="https://wa.me/5491165705959"
+            target="_blank"
+            rel="noopener noreferrer"
             aria-label="WhatsApp"
-            className={`cursor-target flex h-9 w-9 items-center justify-center rounded-full ${
+            className={`cursor-target hidden h-9 w-9 items-center justify-center rounded-full lg:flex ${
               isScrolled
                 ? 'text-slate-medium hover:text-[#25D366]'
                 : 'text-white/70 hover:text-[#25D366]'
@@ -166,7 +173,7 @@ export default function Navbar() {
         {/* Mobile hamburger */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="relative h-5 w-6 lg:hidden"
+          className="relative h-5 w-6 sm:hidden"
           aria-label={mobileOpen ? 'Cerrar menú' : 'Abrir menú'}
         >
           <m.span
@@ -197,29 +204,45 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="overflow-hidden border-b border-border bg-white/95 backdrop-blur-xl lg:hidden"
+            className="overflow-hidden border-b border-border bg-white/95 backdrop-blur-xl sm:hidden"
           >
-            <div className="flex flex-col gap-1 px-4 py-4">
+            <div className="flex flex-col gap-2.5 px-4 py-4">
               {navLinks.map((link, i) => (
                 <m.button
                   key={link.href}
                   onClick={() => handleNavClick(link.href)}
-                  className="rounded-xl px-4 py-3 text-left text-sm font-medium text-slate-dark hover:bg-slate-light/80"
+                  className="relative rounded-full px-5 py-3 text-center text-sm font-semibold"
                   initial={{ opacity: 0, x: -16 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.06, duration: 0.3 }}
                 >
-                  {link.label}
+                  <span
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 rounded-full"
+                    style={{
+                      padding: '2px',
+                      background:
+                        'linear-gradient(135deg, #42CAD7, #33CC66, #4080E8)',
+                      WebkitMask:
+                        'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                      WebkitMaskComposite: 'xor',
+                      maskComposite: 'exclude',
+                    }}
+                  />
+                  <span className="absolute inset-[2px] rounded-full bg-gradient-to-br from-white via-white to-accent-cyan/10" />
+                  <span className="relative text-slate-dark">{link.label}</span>
                 </m.button>
               ))}
               <m.button
                 onClick={() => { setMobileOpen(false); scrollToContact() }}
-                className="mt-2 rounded-xl bg-gradient-to-br from-accent-cyan via-accent-green to-accent-blue px-4 py-3 text-center text-sm font-semibold text-white"
+                className="relative mt-1 overflow-hidden rounded-full px-4 py-3 text-center text-sm font-semibold text-white shadow-[0_6px_18px_-6px_rgba(66,202,215,0.55)] ring-1 ring-white/20"
                 initial={{ opacity: 0, x: -16 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: navLinks.length * 0.06, duration: 0.3 }}
               >
-                Consultá gratis
+                <span className="absolute inset-0 bg-gradient-to-br from-accent-cyan via-accent-green to-accent-blue" />
+                <span className="absolute inset-0 shadow-[inset_0_1px_1px_rgba(255,255,255,0.3)]" />
+                <span className="relative">Consultá gratis</span>
               </m.button>
             </div>
           </m.div>

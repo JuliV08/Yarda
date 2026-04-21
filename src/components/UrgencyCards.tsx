@@ -32,7 +32,7 @@ export default function UrgencyCards() {
           transition={{ duration: 0.6 }}
         >
           <GradientText className="text-3xl font-bold md:text-4xl lg:text-5xl" animationSpeed={8}>
-            ¿Sabías que...?
+            ¿SABÍAS QUE?
           </GradientText>
         </m.div>
 
@@ -87,8 +87,8 @@ export default function UrgencyCards() {
 
             <p className="text-sm leading-relaxed text-slate-medium md:text-base">
               La Ley 451 de Faltas de CABA establece multas de 13.500 a 68.500
-              Unidades Fijas (UF). Cada UF tiene un valor actual de $949,99.
-              Eso significa multas que van desde{' '}
+              Unidades Fijas (UF). Cada UF tiene un valor de $949,99 (sujeto a
+              actualización tarifaria). Eso significa multas que van desde{' '}
               <CounterAnimation
                 value={12824000}
                 className="font-bold text-slate-dark"
@@ -127,10 +127,10 @@ export default function UrgencyCards() {
             </h3>
 
             <p className="text-sm leading-relaxed text-slate-medium md:text-base">
-              Los inspectores del GCBA te otorgan 15 días para regularizar tu
-              letrero, marquesina o toldo. Si no lo hacés, pueden labrar un Acta
-              de Comprobación (multa), solicitar el retiro del cartel o incluso
-              clausurar el local.
+              Si los inspectores del GCBA te labraron un acta, se te otorgan 15
+              días HÁBILES para regularizar tu letrero, marquesina o toldo. Si
+              no lo hacés, pueden labrar un Acta de Comprobación (multa),
+              solicitar el retiro del cartel o incluso clausurar el local.
             </p>
 
             <m.button

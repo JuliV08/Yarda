@@ -19,9 +19,11 @@ export default function ServiceReach() {
           transition={{ duration: 0.6 }}
           className="text-center"
         >
-          <GradientText className="mb-4 text-3xl font-bold md:text-4xl" animationSpeed={8}>
-            Alcance del servicio
-          </GradientText>
+          <div className="mb-7 md:mb-8">
+            <GradientText className="text-3xl font-bold md:text-4xl" animationSpeed={8}>
+              ALCANCE DEL SERVICIO
+            </GradientText>
+          </div>
           <p className="mb-10 text-base text-slate-medium md:text-lg">
             Trabajamos exclusivamente en la Ciudad Autónoma de Buenos Aires.
           </p>
@@ -79,9 +81,9 @@ export default function ServiceReach() {
             </h3>
 
             <p className="text-sm leading-relaxed text-slate-medium md:text-base">
-              Tenés 15 días para regularizar tu cartelería. Si no lo hacés,
-              pueden multarte, retirar el cartel o clausurar el local. Al
-              obtener el permiso podés subsanar la falta vía TAD.
+              Tenés 15 días HÁBILES para regularizar tu cartelería. Si no lo
+              hacés, pueden multarte, retirar el cartel o clausurar el local.
+              Al obtener el permiso podés subsanar la falta vía TAD.
             </p>
 
             <m.button

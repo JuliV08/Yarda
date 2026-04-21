@@ -57,15 +57,15 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="relative flex min-h-[85vh] items-center justify-center overflow-hidden lg:h-screen"
+      className="relative flex min-h-[85vh] items-center justify-center overflow-hidden pt-36 md:pt-44 lg:h-screen lg:pt-48"
     >
-      {/* Layer 1: Dark slate-blue gradient background */}
+      {/* Layer 1: Slate-blue gradient background — tone +2 (final, approved by client) */}
       <div
         className="absolute inset-0"
         style={{
           background: `
-            radial-gradient(ellipse 80% 60% at 50% 35%, hsla(225, 42%, 22%, 0.55) 0%, transparent 70%),
-            linear-gradient(180deg, hsl(225, 38%, 11%) 0%, hsl(225, 42%, 8%) 55%, hsl(225, 48%, 5%) 100%)
+            radial-gradient(ellipse 80% 60% at 50% 35%, hsla(225, 42%, 34%, 0.55) 0%, transparent 70%),
+            linear-gradient(180deg, hsl(225, 34%, 23%) 0%, hsl(225, 38%, 19%) 55%, hsl(225, 44%, 15%) 100%)
           `,
         }}
       />
@@ -75,7 +75,7 @@ export default function Hero() {
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            'radial-gradient(ellipse at center, transparent 40%, hsla(225, 50%, 3%, 0.6) 100%)',
+            'radial-gradient(ellipse at center, transparent 40%, hsla(225, 50%, 8%, 0.45) 100%)',
         }}
       />
 

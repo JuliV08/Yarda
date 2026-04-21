@@ -31,12 +31,14 @@ export default function Contact() {
   const [message, setMessage] = useState('')
 
   const isValid = name.trim().length > 0 && message.trim().length > 0
+  const whatsappHref = isValid
+    ? buildWhatsAppURL(name.trim(), email.trim(), message.trim())
+    : undefined
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    if (!isValid) return
-    const url = buildWhatsAppURL(name.trim(), email.trim(), message.trim())
-    window.open(url, '_blank', 'noopener,noreferrer')
+    if (!isValid || !whatsappHref) return
+    window.open(whatsappHref, '_blank', 'noopener,noreferrer')
   }
 
   return (
@@ -48,9 +50,9 @@ export default function Contact() {
           whileInView="show"
           viewport={{ once: true, margin: '-80px' }}
         >
-          <m.div variants={itemVariants} className="mb-4 text-center">
+          <m.div variants={itemVariants} className="mb-7 text-center md:mb-8">
             <GradientText className="text-3xl font-bold md:text-4xl lg:text-5xl" animationSpeed={8}>
-              Contacto
+              CONTACTO
             </GradientText>
           </m.div>
 
@@ -135,11 +137,16 @@ export default function Contact() {
                   />
                 </div>
 
-                {/* Submit */}
-                <m.button
-                  type="submit"
-                  disabled={!isValid}
-                  className="cursor-target group relative flex w-full items-center justify-center gap-2.5 overflow-hidden rounded-xl px-8 py-4 text-base font-semibold text-white shadow-lg disabled:cursor-not-allowed disabled:opacity-50"
+                {/* Submit — anchor with dynamic wa.me href for reliability */}
+                <m.a
+                  href={whatsappHref ?? '#'}
+                  target={isValid ? '_blank' : undefined}
+                  rel={isValid ? 'noopener noreferrer' : undefined}
+                  aria-disabled={!isValid}
+                  onClick={(e) => { if (!isValid) e.preventDefault() }}
+                  className={`cursor-target group relative flex w-full items-center justify-center gap-2.5 overflow-hidden rounded-xl px-8 py-4 text-base font-semibold text-white shadow-lg ${
+                    !isValid ? 'cursor-not-allowed opacity-50' : ''
+                  }`}
                   whileHover={isValid ? { scale: 1.02 } : {}}
                   whileTap={isValid ? { scale: 0.98 } : {}}
                   transition={{ type: 'spring', stiffness: 400, damping: 30 }}
@@ -152,7 +159,7 @@ export default function Contact() {
                   <MessageCircle className="relative h-5 w-5" />
                   <span className="relative">Enviar por WhatsApp</span>
                   <Send className="relative h-4 w-4" />
-                </m.button>
+                </m.a>
               </form>
             </m.div>
 
@@ -165,12 +172,11 @@ export default function Contact() {
                 <Mail className="h-6 w-6 text-accent-blue" />
                 <div>
                   <h4 className="text-sm font-semibold text-slate-dark">Email</h4>
-                  {/* TODO: confirmar email corporativo */}
                   <a
-                    href="mailto:info@yarda.com.ar"
+                    href="mailto:yardahabilita@gmail.com"
                     className="text-sm text-slate-medium hover:text-accent-blue"
                   >
-                    info@yarda.com.ar
+                    yardahabilita@gmail.com
                   </a>
                 </div>
               </div>

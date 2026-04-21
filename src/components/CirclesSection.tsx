@@ -31,11 +31,32 @@ const circles: CircleData[] = [
   { id: 5, title: 'Lo que debés saber', icon: Lightbulb },
 ]
 
+const LEY_2936_URL = 'https://www.argentina.gob.ar/normativa/provincial/ley-2936-123456789-0abc-defg-639-2000xvorpyel/actualizacion'
+
+function renderStepDesc(desc: string) {
+  const parts = desc.split('__LEY_2936__')
+  if (parts.length === 1) return desc
+  return (
+    <>
+      {parts[0]}
+      <a
+        href={LEY_2936_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="font-medium text-accent-blue underline decoration-accent-blue/40 underline-offset-2 hover:text-accent-cyan hover:decoration-accent-cyan"
+      >
+        Ley 2936 de Publicidad Exterior
+      </a>
+      {parts[1]}
+    </>
+  )
+}
+
 const tramiteSteps = [
   { title: 'Factibilidad', desc: 'Verificamos que la dirección-zonificación sean compatibles con el tipo de publicidad.' },
   { title: 'Relevamiento Técnico', desc: 'Visita al local para evaluar, medir y detectar ajustes necesarios. En caso de publicidad nueva, se supervisa la colocación.' },
   { title: 'Documentación', desc: 'Presentación ante organismo correspondiente — datos del solicitante, seguro de responsabilidad civil, habilitación del local o constancia de solicitud de inicio de trámite, planos, cálculos estructurales, encomienda profesional ante el consejo profesional (valor incluido en presupuesto), formularios, DDJJ, fotos.' },
-  { title: 'Carga Digital', desc: 'Solicitud de habilitación/permiso ante el organismo oficial, cumplimentando la Ley 2936 de Publicidad Exterior, abono de tasas correspondientes según ley vigente, generación de un número de expediente válido como inicio de trámite para presentar ante organismos de control.' },
+  { title: 'Carga Digital', desc: 'Solicitud de habilitación/permiso ante el organismo oficial, cumplimentando la __LEY_2936__, abono de tasas correspondientes según ley vigente, generación de un número de expediente válido como inicio de trámite para presentar ante organismos de control.' },
   { title: 'Obtención del Permiso', desc: 'Disposición aprobatoria por organismo competente.' },
   { title: 'Alta AGIP', desc: 'Alta del tributo publicitario ante AGIP. Es un importe accesible.' },
 ]
@@ -71,7 +92,7 @@ export default function CirclesSection() {
           transition={{ duration: 0.6 }}
         >
           <GradientText className="text-3xl font-bold md:text-4xl lg:text-5xl" animationSpeed={8}>
-            Información útil
+            INFORMACIÓN ÚTIL
           </GradientText>
         </m.div>
 
@@ -169,7 +190,7 @@ export default function CirclesSection() {
               </div>
               <h4 className="font-semibold text-slate-dark">{step.title}</h4>
               <p className="mt-1 text-sm leading-relaxed text-slate-medium">
-                {step.desc}
+                {renderStepDesc(step.desc)}
               </p>
             </m.div>
           ))}
@@ -226,8 +247,8 @@ export default function CirclesSection() {
         title="¿Te labraron un acta?"
       >
         <m.p variants={modalItemVariants} className="text-sm leading-relaxed text-slate-medium md:text-base">
-          Es un tipo de acta que emiten los inspectores del GCBA en la que se te
-          otorgan 15 días para regularizar tu letrero, marquesina o toldo. En
+          Si los inspectores del GCBA te labraron un acta, se te otorgan 15
+          días HÁBILES para regularizar tu letrero, marquesina o toldo. En
           caso de NO hacerlo, al volver los inspectores se encuentran facultados
           para labrar un Acta de Comprobación (multa). En algunos casos pueden
           solicitar el retiro del cartel o clausura del local, según lo indicado
@@ -258,7 +279,7 @@ export default function CirclesSection() {
           },
           {
             subtitle: '¿Conocés el valor de las multas?',
-            text: 'La Ley 451 de Faltas de CABA establece multas de 13.500 a 68.500 Unidades Fijas (UF). Cada UF tiene un valor actual de $949,99. Eso significa multas que van desde $12.824.000 hasta más de $65.074.000.',
+            text: 'La Ley 451 de Faltas de CABA establece multas de 13.500 a 68.500 Unidades Fijas (UF). Cada UF tiene un valor de $949,99 (sujeto a actualización tarifaria). Eso significa multas que van desde $12.824.000 hasta más de $65.074.000.',
           },
           {
             subtitle: 'El plano técnico es obligatorio',
