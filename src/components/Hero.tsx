@@ -250,18 +250,8 @@ export default function Hero() {
               style={{ textShadow: '0 2px 12px rgba(0,0,0,0.6), 0 0 4px rgba(0,0,0,0.4)' }}
             >
               Somos un equipo especializado en la habilitación de carteles,
-              marquesinas y toldos en CABA.{' '}
-              <span className="relative inline">
-                <m.span
-                  className="absolute bottom-0 left-0 -z-0 h-[35%] w-full origin-left bg-accent-cyan/25"
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: 1 }}
-                  transition={{ duration: 0.8, delay: 2.5, ease: 'easeOut' }}
-                />
-                <span className="relative">
-                  Vos seguís trabajando, nosotros resolvemos.
-                </span>
-              </span>
+              marquesinas y toldos en CABA. Vos seguís trabajando, nosotros
+              resolvemos.
             </p>
           </m.div>
 

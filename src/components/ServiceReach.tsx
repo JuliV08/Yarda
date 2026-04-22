@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { m } from 'motion/react'
 import { FileWarning } from 'lucide-react'
 import GradientText from './GradientText'
@@ -7,8 +6,6 @@ const scrollToContact = () =>
   document.querySelector('#contacto')?.scrollIntoView({ behavior: 'smooth' })
 
 export default function ServiceReach() {
-  const [mapActive, setMapActive] = useState(false)
-
   return (
     <section className="relative py-20 md:py-28">
       <div className="mx-auto max-w-7xl px-4 md:px-8">
@@ -30,35 +27,22 @@ export default function ServiceReach() {
         </m.div>
 
         <div className="grid gap-6 md:grid-cols-5 lg:gap-8">
-          {/* Map — 3 cols */}
+          {/* Mapa CABA — imagen estática en alta resolución */}
           <m.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="relative overflow-hidden rounded-2xl border border-slate-light shadow-lg md:col-span-3"
-            onMouseLeave={() => setMapActive(false)}
           >
-            {!mapActive && (
-              <div
-                className="absolute inset-0 z-10 flex items-end justify-center pb-6"
-                onClick={() => setMapActive(true)}
-              >
-                <span className="cursor-target rounded-full bg-slate-dark/70 px-5 py-2 text-sm font-medium text-white backdrop-blur-sm">
-                  Hacé click para explorar el mapa
-                </span>
-              </div>
-            )}
-
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d52551.19784444934!2d-58.45706054726564!3d-34.61566740959498!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcca3b4ef90cbd%3A0xa0b3812e88e88e87!2sBuenos%20Aires%2C%20CABA!5e0!3m2!1ses-419!2sar!4v1680000000000!5m2!1ses-419!2sar"
-              width="100%"
-              height="320"
-              style={{ border: 0 }}
+            <img
+              src="/images/caba.webp"
+              alt="Mapa de la Ciudad Autónoma de Buenos Aires — alcance del servicio de Yarda"
+              width={1023}
+              height={1023}
               loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Mapa CABA — Alcance del servicio de Yarda"
-              className={`w-full ${!mapActive ? 'pointer-events-none' : ''}`}
+              decoding="async"
+              className="h-full w-full object-cover"
             />
           </m.div>
 
