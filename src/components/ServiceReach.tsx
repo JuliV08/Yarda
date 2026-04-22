@@ -26,15 +26,16 @@ export default function ServiceReach() {
           </p>
         </m.div>
 
-        <div className="grid gap-6 md:grid-cols-5 lg:gap-8">
-          {/* Mapa CABA — imagen estática en alta resolución */}
+        <div className="grid items-stretch gap-6 md:grid-cols-5 lg:gap-8">
+          {/* Mapa CABA — card simétrica con la del acta, mapa completo visible */}
           <m.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="relative overflow-hidden rounded-2xl border border-slate-light shadow-lg md:col-span-3"
+            className="relative aspect-[5/4] overflow-hidden rounded-2xl border border-warning/30 bg-white shadow-lg md:col-span-3 md:aspect-auto md:max-h-[420px] md:min-h-[320px]"
           >
+            <div className="absolute left-0 top-0 z-10 h-1 w-full bg-gradient-to-r from-warning via-red-400 to-warning" />
             <img
               src="/images/caba.webp"
               alt="Mapa de la Ciudad Autónoma de Buenos Aires — alcance del servicio de Yarda"
@@ -42,7 +43,7 @@ export default function ServiceReach() {
               height={1023}
               loading="lazy"
               decoding="async"
-              className="h-full w-full object-cover"
+              className="h-full w-full object-contain p-1 md:p-2"
             />
           </m.div>
 
