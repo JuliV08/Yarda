@@ -1,6 +1,5 @@
-# TODO: reemplazar dominio con el definitivo
 User-agent: *
 Allow: /
 Disallow: /private/
 
-Sitemap: https://yarda.com.ar/sitemap.xml
+Sitemap: https://yarda.ar/sitemap.xml
