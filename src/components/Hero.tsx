@@ -57,7 +57,7 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="relative flex min-h-[85vh] items-center justify-center overflow-hidden pt-36 md:pt-44 lg:h-screen lg:pt-48"
+      className="relative flex min-h-screen items-center justify-center overflow-hidden pt-36 pb-16 md:pt-44 md:pb-20 lg:pt-48 lg:pb-24"
     >
       {/* Layer 1: Slate-blue gradient background — tone +2 (final, approved by client) */}
       <div
@@ -181,7 +181,7 @@ export default function Hero() {
       </m.div>
 
       {/* Layer 3: Centered content */}
-      <div className="relative z-10 mx-auto w-full max-w-5xl px-4 py-20 text-center md:px-8 lg:py-0">
+      <div className="relative z-10 mx-auto w-full max-w-5xl px-4 text-center md:px-8">
         <m.div variants={containerVariants} initial="hidden" animate="show">
           {/* Badge pill */}
           <m.div variants={fadeInVariants} className="mb-7 flex justify-center md:mb-9">

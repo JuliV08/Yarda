@@ -27,23 +27,24 @@ export default function ServiceReach() {
         </m.div>
 
         <div className="grid items-stretch gap-6 md:grid-cols-5 lg:gap-8">
-          {/* Mapa CABA — card simétrica con la del acta, mapa completo visible */}
+          {/* Mapa CABA — iframe con overlay para bloquear interacción */}
           <m.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="relative aspect-[5/4] overflow-hidden rounded-2xl border border-warning/30 bg-white shadow-lg md:col-span-3 md:aspect-auto md:max-h-[420px] md:min-h-[320px]"
+            className="relative overflow-hidden rounded-2xl border border-warning/30 bg-white shadow-lg md:col-span-3 md:min-h-[340px]"
           >
-            <div className="absolute left-0 top-0 z-10 h-1 w-full bg-gradient-to-r from-warning via-red-400 to-warning" />
-            <img
-              src="/images/caba.webp"
-              alt="Mapa de la Ciudad Autónoma de Buenos Aires — alcance del servicio de Yarda"
-              width={1023}
-              height={1023}
+            <div className="absolute left-0 top-0 z-20 h-1 w-full bg-gradient-to-r from-warning via-red-400 to-warning" />
+            {/* Overlay transparente — bloquea clicks sin ocultar el mapa */}
+            <div className="absolute inset-0 z-10" />
+            <iframe
+              title="Ciudad Autónoma de Buenos Aires — área de cobertura de Yarda"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d52551.19784444934!2d-58.45706054726564!3d-34.61566740959498!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcca3b4ef90cbd%3A0xa0b3812e88e88e87!2sBuenos%20Aires%2C%20CABA!5e0!3m2!1ses-419!2sar!4v1680000000000!5m2!1ses-419!2sar"
+              className="block h-full min-h-[300px] w-full border-0 md:min-h-[340px]"
+              allowFullScreen={false}
               loading="lazy"
-              decoding="async"
-              className="h-full w-full object-contain p-1 md:p-2"
+              referrerPolicy="no-referrer-when-downgrade"
             />
           </m.div>
 
