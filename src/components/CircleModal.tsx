@@ -1,5 +1,5 @@
 import { m, AnimatePresence } from 'motion/react'
-import type { ReactNode } from 'react'
+import { useEffect, type ReactNode } from 'react'
 import { X } from 'lucide-react'
 
 interface CircleModalProps {
@@ -47,6 +47,36 @@ export const modalItemVariants = {
 }
 
 export default function CircleModal({ isOpen, onClose, title, children }: CircleModalProps) {
+  // Body scroll lock — técnica iOS-safe (position: fixed + restaurar scrollY al cerrar)
+  useEffect(() => {
+    if (!isOpen) return
+    const scrollY = window.scrollY
+    const body = document.body
+    body.style.position = 'fixed'
+    body.style.top = `-${scrollY}px`
+    body.style.left = '0'
+    body.style.right = '0'
+    body.style.width = '100%'
+    return () => {
+      body.style.position = ''
+      body.style.top = ''
+      body.style.left = ''
+      body.style.right = ''
+      body.style.width = ''
+      window.scrollTo(0, scrollY)
+    }
+  }, [isOpen])
+
+  // Cerrar con Escape
+  useEffect(() => {
+    if (!isOpen) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [isOpen, onClose])
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -57,19 +87,18 @@ export default function CircleModal({ isOpen, onClose, title, children }: Circle
           initial="hidden"
           animate="visible"
           exit="hidden"
+          role="dialog"
+          aria-modal="true"
         >
-          {/* Backdrop */}
+          {/* Backdrop — opacity-only para evitar animar backdrop-filter (caro en mobile) */}
           <m.div
             className="absolute inset-0 bg-slate-dark/60 backdrop-blur-sm"
             onClick={onClose}
-            initial={{ backdropFilter: 'blur(0px)' }}
-            animate={{ backdropFilter: 'blur(6px)' }}
-            exit={{ backdropFilter: 'blur(0px)' }}
           />
 
-          {/* Modal Container */}
+          {/* Modal Container — sin backdrop-blur, mejora perf en mobile */}
           <m.div
-            className="relative flex w-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-white/20 bg-white/95 shadow-2xl backdrop-blur-2xl"
+            className="relative flex w-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-white/20 bg-white shadow-2xl"
             variants={modalVariants}
             initial="hidden"
             animate="visible"
@@ -95,8 +124,8 @@ export default function CircleModal({ isOpen, onClose, title, children }: Circle
               <X className="h-5 w-5" />
             </button>
 
-            {/* Scrollable Area */}
-            <div className="relative z-10 max-h-[85vh] w-full overflow-y-auto p-6 md:p-8">
+            {/* Scrollable Area — dvh + overscroll-contain para scroll correcto en mobile */}
+            <div className="relative z-10 max-h-[85dvh] w-full overflow-y-auto overscroll-contain p-6 md:p-8">
               {/* Title */}
               <m.h3
                 className="mb-6 pr-10 text-2xl font-bold text-slate-dark"

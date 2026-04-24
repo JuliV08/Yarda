@@ -13,7 +13,11 @@ import type { LucideIcon } from 'lucide-react'
 import CircleModal, { modalItemVariants } from './CircleModal'
 
 const scrollToContact = () => {
-  document.querySelector('#contacto')?.scrollIntoView({ behavior: 'smooth' })
+  // setTimeout para esperar que el body scroll lock del modal se desbloquee
+  // (el cleanup del useEffect restaura window.scrollY antes de poder scrollear)
+  setTimeout(() => {
+    document.querySelector('#contacto')?.scrollIntoView({ behavior: 'smooth' })
+  }, 100)
 }
 
 interface CircleData {
@@ -127,44 +131,42 @@ export default function CirclesSection() {
         onClose={() => setActiveCircle(null)}
         title="Tipos de Cartel"
       >
-        <div className="max-h-[60vh] overflow-y-auto pr-1">
-          {signTypes.map((st, i) => (
-            <m.div
-              key={i}
-              variants={modalItemVariants}
-              className="border-b border-slate-light/60 py-4 last:border-0"
-            >
-              <div className="flex gap-4">
-                {/* TODO: reemplazar placeholders con imágenes finales de las clientas */}
-                {st.image ? (
-                  <img
-                    src={st.image}
-                    alt={st.name}
-                    className="h-32 w-44 flex-shrink-0 rounded-lg border border-slate-light object-cover shadow-sm md:h-40 md:w-56"
-                  />
-                ) : (
-                  <div
-                    className="flex h-32 w-44 flex-shrink-0 items-center justify-center rounded-lg border border-dashed border-slate-light bg-slate-light/30 text-[11px] font-medium uppercase tracking-wider text-slate-medium/60 md:h-40 md:w-56"
-                    aria-hidden="true"
-                  >
-                    Foto próximamente
-                  </div>
-                )}
-                <div>
-                  <h4 className="font-semibold text-slate-dark">{st.name}</h4>
-                  <p className="mt-1 text-sm text-slate-medium">{st.desc}</p>
+        {signTypes.map((st, i) => (
+          <m.div
+            key={i}
+            variants={modalItemVariants}
+            className="border-b border-slate-light/60 py-4 last:border-0"
+          >
+            <div className="flex gap-4">
+              {/* TODO: reemplazar placeholders con imágenes finales de las clientas */}
+              {st.image ? (
+                <img
+                  src={st.image}
+                  alt={st.name}
+                  className="h-28 w-36 flex-shrink-0 rounded-lg border border-slate-light object-cover shadow-sm sm:h-32 sm:w-44 md:h-40 md:w-56"
+                />
+              ) : (
+                <div
+                  className="flex h-28 w-36 flex-shrink-0 items-center justify-center rounded-lg border border-dashed border-slate-light bg-slate-light/30 text-[11px] font-medium uppercase tracking-wider text-slate-medium/60 sm:h-32 sm:w-44 md:h-40 md:w-56"
+                  aria-hidden="true"
+                >
+                  Foto próximamente
                 </div>
+              )}
+              <div>
+                <h4 className="font-semibold text-slate-dark">{st.name}</h4>
+                <p className="mt-1 text-sm text-slate-medium">{st.desc}</p>
               </div>
-            </m.div>
-          ))}
-          <m.div variants={modalItemVariants} className="mt-4 rounded-lg bg-slate-light/50 p-4">
-            <p className="text-sm text-slate-medium">
-              <strong className="text-slate-dark">Vigencia del permiso:</strong>{' '}
-              Letrero (todos los tipos) y toldo → vigente mientras dure la actividad
-              comercial. Marquesina → se renueva cada 5 años.
-            </p>
+            </div>
           </m.div>
-        </div>
+        ))}
+        <m.div variants={modalItemVariants} className="mt-4 rounded-lg bg-slate-light/50 p-4">
+          <p className="text-sm text-slate-medium">
+            <strong className="text-slate-dark">Vigencia del permiso:</strong>{' '}
+            Letrero (todos los tipos) y toldo → vigente mientras dure la actividad
+            comercial. Marquesina → se renueva cada 5 años.
+          </p>
+        </m.div>
       </CircleModal>
 
       <CircleModal
