@@ -9,9 +9,6 @@ const navLinks = [
   { label: 'Contacto', href: '#contacto' },
 ]
 
-const scrollToContact = () =>
-  document.querySelector('#contacto')?.scrollIntoView({ behavior: 'smooth' })
-
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const isScrolled = useScrollPosition(50)
@@ -27,9 +24,20 @@ export default function Navbar() {
   }, [isScrolled])
 
   const handleNavClick = (href: string) => {
-    setMobileOpen(false)
-    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' })
+    if (mobileOpen) {
+      // Drawer abierto: cerrar primero y esperar el exit animation (~300ms)
+      // antes de scrollear. Si no, iOS Safari cancela el smooth scroll
+      // porque el target se mueve mientras el drawer colapsa el layout.
+      setMobileOpen(false)
+      setTimeout(() => {
+        document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' })
+      }, 350)
+    } else {
+      document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' })
+    }
   }
+
+  const handleContactCTA = () => handleNavClick('#contacto')
 
   return (
     <m.nav
@@ -131,7 +139,7 @@ export default function Navbar() {
           ))}
 
           <m.button
-            onClick={scrollToContact}
+            onClick={handleContactCTA}
             className="cursor-target group relative ml-0.5 overflow-hidden rounded-full px-3 py-1.5 text-[11px] font-semibold text-white shadow-[0_6px_18px_-6px_rgba(66,202,215,0.55)] ring-1 ring-white/20 md:ml-1 md:px-4 md:py-2 md:text-xs lg:px-6 lg:py-2.5 lg:text-sm"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.97 }}
@@ -251,10 +259,7 @@ export default function Navbar() {
                 </m.button>
               ))}
               <m.button
-                onClick={() => {
-                  setMobileOpen(false)
-                  scrollToContact()
-                }}
+                onClick={handleContactCTA}
                 className="relative mt-1 overflow-hidden rounded-full px-4 py-3 text-center text-sm font-semibold text-white shadow-[0_6px_18px_-6px_rgba(66,202,215,0.55)] ring-1 ring-white/20"
                 initial={{ opacity: 0, x: -16 }}
                 animate={{ opacity: 1, x: 0 }}
