@@ -281,13 +281,30 @@ export default function Hero() {
                   .querySelector('#servicios')
                   ?.scrollIntoView({ behavior: 'smooth' })
               }
-              className="cursor-target rounded-lg border border-white/25 bg-white/[0.04] px-8 py-4 text-base font-semibold text-white backdrop-blur-sm hover:border-white/40 hover:bg-white/10"
+              className="cursor-target group relative rounded-lg px-8 py-4 text-base font-semibold text-white"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
               transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-              style={{ transition: 'background-color 0.2s, border-color 0.2s' }}
             >
-              Conocé el proceso
+              {/* Gradient border — misma técnica que las pills de la navbar */}
+              <span
+                aria-hidden
+                className="pointer-events-none absolute inset-0 rounded-lg"
+                style={{
+                  padding: '2px',
+                  background:
+                    'linear-gradient(135deg, #42CAD7, #33CC66, #4080E8)',
+                  WebkitMask:
+                    'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                  WebkitMaskComposite: 'xor',
+                  maskComposite: 'exclude',
+                }}
+              />
+              <span
+                className="absolute inset-[2px] rounded-[6px] bg-white/[0.04] backdrop-blur-sm group-hover:bg-white/10"
+                style={{ transition: 'background-color 0.2s' }}
+              />
+              <span className="relative">Conocé el proceso</span>
             </m.button>
           </m.div>
         </m.div>

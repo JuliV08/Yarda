@@ -1,5 +1,6 @@
 import { m, AnimatePresence } from 'motion/react'
 import { useEffect, type ReactNode } from 'react'
+import { createPortal } from 'react-dom'
 import { X } from 'lucide-react'
 
 interface CircleModalProps {
@@ -63,7 +64,9 @@ export default function CircleModal({ isOpen, onClose, title, children }: Circle
       body.style.left = ''
       body.style.right = ''
       body.style.width = ''
-      window.scrollTo(0, scrollY)
+      // behavior:'instant' anula el scroll-behavior:smooth global del index.css,
+      // si no el restore se anima y pasa por el hero antes de volver al scrollY
+      window.scrollTo({ top: scrollY, left: 0, behavior: 'instant' })
     }
   }, [isOpen])
 
@@ -77,12 +80,14 @@ export default function CircleModal({ isOpen, onClose, title, children }: Circle
     return () => window.removeEventListener('keydown', onKey)
   }, [isOpen, onClose])
 
-  return (
+  // Portal a document.body para escapar cualquier stacking context del árbol
+  // (sin esto el logo del navbar se superpone al modal en mobile)
+  return createPortal(
     <AnimatePresence>
       {isOpen && (
         <m.div
           key="modal-backdrop"
-          className="fixed inset-0 z-[60] flex items-center justify-center p-4"
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4"
           variants={backdropVariants}
           initial="hidden"
           animate="visible"
@@ -144,6 +149,7 @@ export default function CircleModal({ isOpen, onClose, title, children }: Circle
           </m.div>
         </m.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   )
 }
